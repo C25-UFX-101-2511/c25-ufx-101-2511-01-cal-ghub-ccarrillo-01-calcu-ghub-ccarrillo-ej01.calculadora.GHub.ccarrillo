@@ -49,6 +49,24 @@ jobs:
         command: "./build/appTests ex1 && make test"
         timeout: 10
         max-score: 20
+    - name: test5
+      id: test5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: test5
+        setup-command: g++ *.cpp -o build/exercise
+        command: "./build/exercise"
+        input: |-
+          14
+          4
+        expected-output: |-
+          Operando 1:Operando 2:La suma es:16
+          La resta es:8
+          La multiplicación es:48
+          La división es:3
+        comparison-method: contains
+        timeout: 10
+        max-score: 20
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
@@ -56,5 +74,6 @@ jobs:
         TEST2_RESULTS: "${{steps.test2.outputs.result}}"
         TEST3_RESULTS: "${{steps.test3.outputs.result}}"
         TEST4_RESULTS: "${{steps.test4.outputs.result}}"
+        TEST5_RESULTS: "${{steps.test5.outputs.result}}"
       with:
-        runners: test1,test2,test3,test4
+        runners: test1,test2,test3,test4,test5
